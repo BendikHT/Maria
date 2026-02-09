@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vil du være min valentine</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="floating-heart" style="left: 5%; animation-delay: 0s;">❤️</div>
     <div class="floating-heart" style="left: 15%; animation-delay: 1s;">❤️</div>
@@ -50,14 +52,16 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <img id="modalImage" src="" alt="Will you be my valentine?" class="modal-image">
-            <p class="modal-text">Vil du virkelig ikke være med han her? 💔</p>
+            <p id="noModalText" class="modal-text">
+                Vil du virkelig ikke være med han her? 💔
+            </p>
         </div>
     </div>
 
     <script>
         let noButtonScale = 1;
         let clickCount = 0;
-        
+
         // Array of images from bilde folder
         const images = [
             'bilder/image2.jpg',
@@ -85,7 +89,7 @@
             // Show yes modal
             const yesModal = document.getElementById('yesModal');
             yesModal.style.display = 'block';
-            
+
             // Create confetti hearts
             createConfetti();
         }
@@ -95,7 +99,7 @@
             yesModal.style.display = 'none';
         }
 
-        
+
 
         function createConfetti() {
             for (let i = 0; i < 300; i++) {
@@ -108,7 +112,7 @@
                     confetti.style.opacity = '1';
                     confetti.style.setProperty('--tx', (Math.random() - 0.5) * 800 + 'px');
                     document.body.appendChild(confetti);
-                    
+
                     // Remove confetti after animation
                     setTimeout(() => {
                         confetti.remove();
@@ -119,32 +123,32 @@
 
         function handleNo() {
             const noBtn = document.querySelector('.no-btn');
-            
+
             // Move button to random position
             const randomX = Math.random() * (window.innerWidth - 100);
             const randomY = Math.random() * (window.innerHeight - 50);
-            
+
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
-            
+
             // Make button smaller
             noButtonScale -= 0.1;
             if (noButtonScale < 0.1) noButtonScale = 0.1;
-            
+
             noBtn.style.transform = `scale(${noButtonScale})`;
-            
+
             // Show modal with image and changing message
             clickCount++;
             const imageIndex = (clickCount - 1) % images.length;
             const messageIndex = Math.min(clickCount - 1, messages.length - 1);
-            
+
             const modalImage = document.getElementById('modalImage');
             modalImage.src = images[imageIndex];
-            
-            const modalText = document.querySelector('.modal-text');
+
+            const modalText = document.getElementById('noModalText');
             modalText.textContent = messages[messageIndex];
-            
+
             const modal = document.getElementById('noModal');
             modal.style.display = 'block';
         }
@@ -155,7 +159,7 @@
         }
 
         // Close modal when clicking outside of it
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const noModal = document.getElementById('noModal');
             const yesModal = document.getElementById('yesModal');
             if (event.target == noModal) {
@@ -167,4 +171,5 @@
         }
     </script>
 </body>
+
 </html>
